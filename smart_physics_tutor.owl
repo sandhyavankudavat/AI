@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+    <!ENTITY mechanics "http://www.physicstutor.org/mechanics#">
+]>
+
+<rdf:RDF 
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:mechanics="http://www.physicstutor.org/mechanics#"
+    xml:base="http://www.physicstutor.org/mechanics">
+
+    <!-- Ontology Declaration -->
+    <owl:Ontology rdf:about="http://www.physicstutor.org/mechanics">
+        <rdfs:label>Comprehensive Physics Formula Validation Ontology</rdfs:label>
+        <rdfs:comment>Ontology for validating physics formulas across multiple domains of physics</rdfs:comment>
+    </owl:Ontology>
+
+    <!-- Base Classes -->
+    <owl:Class rdf:ID="PhysicsFormulaValidator">
+        <rdfs:label>Physics Formula Validator</rdfs:label>
+        <rdfs:comment>Base class for formula validation mechanisms</rdfs:comment>
+    </owl:Class>
+
+    <!-- Physics Domain Classes -->
+    <owl:Class rdf:ID="ClassicalMechanicsFormula">
+        <rdfs:subClassOf rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:label>Classical Mechanics Formula Validator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:ID="ElectrodynamicsFormula">
+        <rdfs:subClassOf rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:label>Electrodynamics Formula Validator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:ID="ThermodynamicsFormula">
+        <rdfs:subClassOf rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:label>Thermodynamics Formula Validator</rdfs:label>
+    </owl:Class>
+
+    <!-- Validation Properties -->
+    <owl:DatatypeProperty rdf:ID="hasFormulaPattern">
+        <rdfs:label>has Formula Pattern</rdfs:label>
+        <rdfs:domain rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Regex pattern for validating formula structure</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:ID="hasValidationRule">
+        <rdfs:label>has Validation Rule</rdfs:label>
+        <rdfs:domain rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Validation rules for the physics formula</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:ID="hasUnitConstraint">
+        <rdfs:label>has Unit Constraint</rdfs:label>
+        <rdfs:domain rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unit constraints for formula variables</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:ID="hasValueConstraint">
+        <rdfs:label>has Value Constraint</rdfs:label>
+        <rdfs:domain rdf:resource="#PhysicsFormulaValidator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Constraints on numeric values used in the formula</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Newton's Second Law Validator -->
+    <owl:NamedIndividual rdf:ID="NewtonSecondLawValidator">
+        <rdf:type rdf:resource="#ClassicalMechanicsFormula"/>
+        <rdfs:label>F = ma Validator</rdfs:label>
+        
+        <mechanics:hasFormulaPattern rdf:datatype="http://www.w3.org/2001/XMLSchema#string">^F\s*=\s*\d+(\.\d+)?\s*\*\s*\d+(\.\d+)?$</mechanics:hasFormulaPattern>
+        
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Formula must exactly match F = m * a</mechanics:hasValidationRule>
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All variables must be represented with their standard symbols: F (Force), m (Mass), a (Acceleration)</mechanics:hasValidationRule>
+        
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mass (m) must be a positive number greater than 0</mechanics:hasValueConstraint>
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Acceleration (a) can be positive, negative, or zero, representing different directional forces</mechanics:hasValueConstraint>
+        
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F: Newtons (N)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">m: Kilograms (kg)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a: Meters per second squared (m/s²)</mechanics:hasUnitConstraint>
+    </owl:NamedIndividual>
+
+    <!-- Kinetic Energy Validator -->
+    <owl:NamedIndividual rdf:ID="KineticEnergyValidator">
+        <rdf:type rdf:resource="#ClassicalMechanicsFormula"/>
+        <rdfs:label>Kinetic Energy (KE) Validator</rdfs:label>
+        
+        <mechanics:hasFormulaPattern rdf:datatype="http://www.w3.org/2001/XMLSchema#string">^KE\s*=\s*0.5\s*\*\s*\d+(\.\d+)?\s*\*\s*\d+(\.\d+)?\^2$</mechanics:hasFormulaPattern>
+        
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Formula must exactly match KE = 0.5 * m * v^2</mechanics:hasValidationRule>
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All variables must be represented with their standard symbols: KE (Kinetic Energy), m (Mass), v (Velocity)</mechanics:hasValidationRule>
+        
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mass (m) must be a positive number greater than 0</mechanics:hasValueConstraint>
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Velocity (v) must be non-negative</mechanics:hasValueConstraint>
+        
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KE: Joules (J)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">m: Kilograms (kg)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">v: Meters per second (m/s)</mechanics:hasUnitConstraint>
+    </owl:NamedIndividual>
+
+    <!-- Ohm's Law Validator -->
+    <owl:NamedIndividual rdf:ID="OhmsLawValidator">
+        <rdf:type rdf:resource="#ElectrodynamicsFormula"/>
+        <rdfs:label>Ohm's Law Validator</rdfs:label>
+        
+        <mechanics:hasFormulaPattern rdf:datatype="http://www.w3.org/2001/XMLSchema#string">^V\s*=\s*\d+(\.\d+)?\s*\*\s*\d+(\.\d+)?$</mechanics:hasFormulaPattern>
+        
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Formula must exactly match V = I * R</mechanics:hasValidationRule>
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All variables must be represented with their standard symbols: V (Voltage), I (Current), R (Resistance)</mechanics:hasValidationRule>
+        
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Current (I) must be non-negative</mechanics:hasValueConstraint>
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Resistance (R) must be a positive number greater than 0</mechanics:hasValueConstraint>
+        
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">V: Volts (V)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I: Amperes (A)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">R: Ohms (Ω)</mechanics:hasUnitConstraint>
+    </owl:NamedIndividual>
+
+    <!-- Ideal Gas Law Validator -->
+    <owl:NamedIndividual rdf:ID="IdealGasLawValidator">
+        <rdf:type rdf:resource="#ThermodynamicsFormula"/>
+        <rdfs:label>Ideal Gas Law Validator</rdfs:label>
+        
+        <mechanics:hasFormulaPattern rdf:datatype="http://www.w3.org/2001/XMLSchema#string">^PV\s*=\s*\d+(\.\d+)?\s*\*\s*\d+(\.\d+)?\s*\*\s*\d+(\.\d+)?$</mechanics:hasFormulaPattern>
+        
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Formula must exactly match PV = nRT</mechanics:hasValidationRule>
+        <mechanics:hasValidationRule rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All variables must be represented with their standard symbols: P (Pressure), V (Volume), n (Number of Moles), R (Gas Constant), T (Temperature)</mechanics:hasValidationRule>
+        
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Number of Moles (n) must be a positive number greater than 0</mechanics:hasValueConstraint>
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gas Constant (R) must be a positive number greater than 0</mechanics:hasValueConstraint>
+        <mechanics:hasValueConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Temperature (T) must be non-negative (absolute temperature in Kelvin)</mechanics:hasValueConstraint>
+        
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P: Pascals (Pa)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">V: Cubic meters (m³)</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">n: Moles</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">R: Gas constant (J/(mol·K))</mechanics:hasUnitConstraint>
+        <mechanics:hasUnitConstraint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">T: Kelvin (K)</mechanics:hasUnitConstraint>
+    </owl:NamedIndividual>
+
+    <!-- Validation Result Classes -->
+    <owl:Class rdf:ID="FormulaValidationResult">
+        <rdfs:label>Formula Validation Result</rdfs:label>
+        <rdfs:comment>Represents the result of a formula validation process</rdfs:comment>
+    </owl:Class>
+
+    <owl:DatatypeProperty rdf:ID="isValid">
+        <rdfs:label>Is Valid</rdfs:label>
+        <rdfs:domain rdf:resource="#FormulaValidationResult"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:ID="validationErrorMessage">
+        <rdfs:label>Validation Error Message</rdfs:label>
+        <rdfs:domain rdf:resource="#FormulaValidationResult"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+</rdf:RDF>
